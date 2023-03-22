@@ -7,9 +7,47 @@ public class Game {
 	private double squareDx;
 	private double squareDy;
 	
+	private double radius;
+	private Sphere sphere;
+	private double sphereDx;
+	private double sphereDy;
 	public Game() {
 		
 	}
+	
+	public void setSphere(Sphere sphere) {
+		this.sphere = sphere;
+	}
+	
+	public Sphere getSphere() {
+		return sphere;
+	}
+	
+	public void setRadius(double radius) {
+		this.radius = radius;
+	}
+	
+	public double getRadius() {
+		return radius;
+	}
+	
+	
+	public void setSphereDx(double sphereDx) {
+		this.sphereDx = sphereDx;
+	}
+	
+	public double getSphereDx() {
+		return sphereDx;
+	}
+	
+	public void setSphereDy(double sphereDy) {
+		this.sphereDy = sphereDy;
+	}
+	
+	public double getSphereDy() {
+		return sphereDy;
+	}
+	
 	
 	public void setSquare(Square square) {
 		this.square = square;

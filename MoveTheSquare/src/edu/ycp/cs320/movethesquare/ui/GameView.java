@@ -15,9 +15,13 @@ import javax.swing.Timer;
 import edu.ycp.cs320.movethesquare.controllers.GameController;
 import edu.ycp.cs320.movethesquare.model.Game;
 import edu.ycp.cs320.movethesquare.model.Square;
+import edu.ycp.cs320.movethesquare.model.Sphere;
+
 
 public class GameView extends JPanel {
 	private static final Color MIDNIGHT_BLUE = new Color(25, 25, 112);
+	private static final Color MIDNIGHT_GREEN = new Color(25, 125, 12);
+
 	
 	private Game model;
 	private GameController controller;
@@ -26,7 +30,7 @@ public class GameView extends JPanel {
 	public GameView(Game model) {
 		this.model = model;
 		setPreferredSize(new Dimension((int) model.getWidth(), (int)model.getHeight()));
-		setBackground(MIDNIGHT_BLUE);
+		setBackground(MIDNIGHT_GREEN);
 
 		// djh2-KEC119-21: changed from 30 to 45
 		// djh2-YCPlaptop: change from 45 to 100
@@ -52,11 +56,14 @@ public class GameView extends JPanel {
 			return;
 		}
 		Square square = model.getSquare();
+		Sphere sphere = model.getSphere();
 		Point mouseLoc = getMousePosition();
 		if (mouseLoc != null) {
 			controller.computeSquareMoveDirection(model, square, mouseLoc.getX(), mouseLoc.getY());
+			controller.computeSphereMoveDirection(model, sphere, mouseLoc.getX(), mouseLoc.getY());
 		}
 		controller.moveSquare(model, square);
+		controller.moveSphere(model, sphere);
 		repaint();
 	}
 	
@@ -71,6 +78,13 @@ public class GameView extends JPanel {
 		Square square = model.getSquare();
 		
 		g.fillRect((int) square.getX(), (int) square.getY(), (int) square.getWidth(), (int) square.getHeight());
+		
+		g.setColor(Color.BLACK);
+
+		Sphere sphere = model.getSphere();
+		
+
+		g.fillOval( (int)sphere.getX(),(int) sphere.getY(),(int) sphere.getRadius(),(int) sphere.getRadius());
 	}
 	
 	public static void main(String[] args) {
@@ -84,9 +98,15 @@ public class GameView extends JPanel {
 				Square square = new Square();
 				square.setX(300.0);
 				square.setY(220.0);
-				square.setWidth(40.0);
+				square.setWidth(4.0);
 				square.setHeight(40.0);
 				model.setSquare(square);
+				
+				Sphere sphere = new Sphere();
+				sphere.setX(150.0);
+				sphere.setY(450.0);
+				sphere.setRadius(55.0);
+				model.setSphere(sphere);
 				
 				GameController controller = new GameController();
 				
